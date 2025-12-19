@@ -106,10 +106,10 @@
 				6589F64C292A538400D686D7 /* Preview Content */,
 				6589F66E292A6AAD00D686D7 /* Utilities */,
 				6589F664292A616100D686D7 /* ViewModel */,
-				6589F646292A538100D686D7 /* GoogleCalendarAPIDemoApp.swift */,
 				6589F648292A538100D686D7 /* ContentView.swift */,
-				6589F671292A6D6C00D686D7 /* LoginView.swift */,
+				6589F646292A538100D686D7 /* GoogleCalendarAPIDemoApp.swift */,
 				6589F673292A6F1D00D686D7 /* HomeView.swift */,
+				6589F671292A6D6C00D686D7 /* LoginView.swift */,
 				6589F675292A6F5500D686D7 /* ProfileView.swift */,
 			);
 			path = GoogleCalendarAPIDemo;
