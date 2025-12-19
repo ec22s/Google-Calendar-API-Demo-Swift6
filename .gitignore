@@ -94,3 +94,5 @@ iOSInjectionProject/
 Info.plist
 GoogleCalendarAPIDemo/GoogleService-Info.plist
 GoogleCalendarAPIDemo/Assets/GoogleInfo.plist
+
+.DS_Store
