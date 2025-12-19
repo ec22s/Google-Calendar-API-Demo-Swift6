@@ -35,6 +35,8 @@ forked from [ipratikk/Google-Calendar-API-Demo](https://github.com/ipratikk/Goog
  
     - 左側メニューの「クライアント」で「OAuth 2.0 クライアント ID」を作る
  
+      - アプリの種類はiOS
+ 
       - 名前はデフォルトでOk
    
       - バンドルIDは先に決めたiOSアプリのそれ
