@@ -25,7 +25,8 @@ struct CalendarEventListItems: View {
             }
             List {
                 ForEach(1 ... getRange(year: year, month: month) , id: \.self) { day in
-                    if let filteredData = filteredEvents(day), filteredData.count > 0 {
+                    let filteredData = filteredEvents(day)
+                    if filteredData.count > 0 {
                         Section(header: Text("\(calendar.monthSymbols[month-1]) \(day)")) {
                             ForEach(filteredData, id: \.identifier) { event in
                                 CalendarEventView(event: event)

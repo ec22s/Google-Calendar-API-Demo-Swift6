@@ -13,7 +13,6 @@
 		6589F64E292A538400D686D7 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6589F64D292A538400D686D7 /* Preview Assets.xcassets */; };
 		6589F656292A551000D686D7 /* GoogleAPIClientForREST_Calendar in Frameworks */ = {isa = PBXBuildFile; productRef = 6589F655292A551000D686D7 /* GoogleAPIClientForREST_Calendar */; };
 		6589F659292A553100D686D7 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 6589F658292A553100D686D7 /* Lottie */; };
-		6589F662292A5AF500D686D7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6589F661292A5AF500D686D7 /* GoogleService-Info.plist */; };
 		6589F666292A617300D686D7 /* AuthenticationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6589F665292A617300D686D7 /* AuthenticationViewModel.swift */; };
 		6589F66A292A666C00D686D7 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 6589F669292A666C00D686D7 /* GoogleSignIn */; };
 		6589F66C292A666C00D686D7 /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 6589F66B292A666C00D686D7 /* GoogleSignInSwift */; };
@@ -42,8 +41,7 @@
 		6589F648292A538100D686D7 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		6589F64A292A538400D686D7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6589F64D292A538400D686D7 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		6589F660292A5ADE00D686D7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		6589F661292A5AF500D686D7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		6589F660292A5ADE00D686D7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6589F663292A5B2600D686D7 /* GoogleCalendarAPIDemo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GoogleCalendarAPIDemo.entitlements; sourceTree = "<group>"; };
 		6589F665292A617300D686D7 /* AuthenticationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationViewModel.swift; sourceTree = "<group>"; };
 		6589F66F292A6AB900D686D7 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
@@ -99,21 +97,20 @@
 		6589F645292A538100D686D7 /* GoogleCalendarAPIDemo */ = {
 			isa = PBXGroup;
 			children = (
-				6589F683292A72A600D686D7 /* Assets */,
-				6589F66E292A6AAD00D686D7 /* Utilities */,
-				6589F664292A616100D686D7 /* ViewModel */,
+				6589F64A292A538400D686D7 /* Assets.xcassets */,
 				6589F663292A5B2600D686D7 /* GoogleCalendarAPIDemo.entitlements */,
 				6589F660292A5ADE00D686D7 /* Info.plist */,
-				6589F661292A5AF500D686D7 /* GoogleService-Info.plist */,
+				6589F683292A72A600D686D7 /* Assets */,
+				6589F698292BBA0B00D686D7 /* CalendarView */,
+				6589F68C292A72BA00D686D7 /* HelperViews */,
+				6589F64C292A538400D686D7 /* Preview Content */,
+				6589F66E292A6AAD00D686D7 /* Utilities */,
+				6589F664292A616100D686D7 /* ViewModel */,
 				6589F646292A538100D686D7 /* GoogleCalendarAPIDemoApp.swift */,
 				6589F648292A538100D686D7 /* ContentView.swift */,
 				6589F671292A6D6C00D686D7 /* LoginView.swift */,
 				6589F673292A6F1D00D686D7 /* HomeView.swift */,
 				6589F675292A6F5500D686D7 /* ProfileView.swift */,
-				6589F698292BBA0B00D686D7 /* CalendarView */,
-				6589F68C292A72BA00D686D7 /* HelperViews */,
-				6589F64A292A538400D686D7 /* Assets.xcassets */,
-				6589F64C292A538400D686D7 /* Preview Content */,
 			);
 			path = GoogleCalendarAPIDemo;
 			sourceTree = "<group>";
@@ -226,7 +223,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1320;
-				LastUpgradeCheck = 1320;
+				LastUpgradeCheck = 2620;
 				TargetAttributes = {
 					6589F642292A538100D686D7 = {
 						CreatedOnToolsVersion = 13.2;
@@ -266,7 +263,6 @@
 				6589F68A292A72A600D686D7 /* calendar.json in Resources */,
 				6589F68B292A72A600D686D7 /* calendar_home.json in Resources */,
 				6589F64B292A538400D686D7 /* Assets.xcassets in Resources */,
-				6589F662292A5AF500D686D7 /* GoogleService-Info.plist in Resources */,
 				6589F689292A72A600D686D7 /* loader.json in Resources */,
 				6589F69F292BE67800D686D7 /* GoogleInfo.plist in Resources */,
 			);
@@ -335,8 +331,10 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = TAFC2PM76F;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -356,6 +354,7 @@
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -396,8 +395,10 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = TAFC2PM76F;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -410,6 +411,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				VALIDATE_PRODUCT = YES;
@@ -425,8 +427,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"GoogleCalendarAPIDemo/Preview Content\"";
-				DEVELOPMENT_TEAM = 59SR2WBZJT;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
 				ENABLE_PREVIEWS = YES;
+				ENABLE_RESOURCE_ACCESS_CALENDARS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = GoogleCalendarAPIDemo/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -439,11 +443,11 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.goel.pratik.GoogleCalendarAPIDemo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ec22s.GoogleCalendarAPIDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 6.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -457,8 +461,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"GoogleCalendarAPIDemo/Preview Content\"";
-				DEVELOPMENT_TEAM = 59SR2WBZJT;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
 				ENABLE_PREVIEWS = YES;
+				ENABLE_RESOURCE_ACCESS_CALENDARS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = GoogleCalendarAPIDemo/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -471,11 +477,11 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.goel.pratik.GoogleCalendarAPIDemo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ec22s.GoogleCalendarAPIDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 6.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
