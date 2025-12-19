@@ -33,7 +33,7 @@ struct ColorDefinition: Codable {
     let foreground: String
 }
 
-class AuthenticationViewModel: ObservableObject {
+final class AuthenticationViewModel: ObservableObject, @unchecked Sendable {
 
     @Published var state: SignInState = .signedOut
     @Published var calendarService: GTLRCalendarService? = nil
@@ -58,7 +58,7 @@ class AuthenticationViewModel: ObservableObject {
         return nsDictionary?["CLIENT_ID"] as! String
     }
 
-    func signIn() {
+    @MainActor func signIn() {
             // Checking for previous sign-in, if yes, then restore it, else move to sign in
         if GIDSignIn.sharedInstance.hasPreviousSignIn() {
             GIDSignIn.sharedInstance.restorePreviousSignIn { [unowned self] user, error in
@@ -214,7 +214,7 @@ class AuthenticationViewModel: ObservableObject {
 extension AuthenticationViewModel {
 
     func addCalendarListToSpotlight() {
-        let bundleID = Bundle.main.bundleIdentifier
+        guard let bundleID = Bundle.main.bundleIdentifier else { return }
         let domainIdentifier = "\(bundleID).calendarList"
         let searchableItems = calendarListItems.map { entity -> CSSearchableItem in
             let attributeSet = CSSearchableItemAttributeSet(contentType: .content)
@@ -229,7 +229,7 @@ extension AuthenticationViewModel {
     }
 
     func addCalendarEventsToSpotlight() {
-        let bundleID = Bundle.main.bundleIdentifier
+        guard let bundleID = Bundle.main.bundleIdentifier else { return }
         let domainIdentifier = "\(bundleID).calendarEvents"
         let events = allEvents.flatMap { $0.value }
         let searchableItems = events.map { entity -> CSSearchableItem in
