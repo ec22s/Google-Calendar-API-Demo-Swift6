@@ -5,13 +5,14 @@
 //  Created by Goel, Pratik on 20/11/22.
 //
 
+private let AUTHORIZER_KEY: String = "hoge"
+
 import Foundation
-import GoogleSignIn
+import AppAuth
+import GTMAppAuth
 import GoogleAPIClientForREST_Calendar
 import CoreSpotlight
 import MobileCoreServices
-
-
 
 enum SignInState {
     case signedIn
@@ -33,6 +34,13 @@ struct ColorDefinition: Codable {
     let foreground: String
 }
 
+private let CALENDAR_SCOPES: [String] = [
+    "https://www.googleapis.com/auth/calendar.readonly",
+    "https://www.googleapis.com/auth/calendar.events.readonly",
+    "https://www.googleapis.com/auth/admin.directory.user.readonly",
+    "https://www.googleapis.com/auth/admin.directory.resource.calendar.readonly",
+]
+
 final class AuthenticationViewModel: ObservableObject, @unchecked Sendable {
 
     @Published var state: SignInState = .signedOut
@@ -50,48 +58,68 @@ final class AuthenticationViewModel: ObservableObject, @unchecked Sendable {
         }
     }
 
-    func getClientIDFromPlist() -> String {
-        var nsDictionary: NSDictionary?
-        if let path = Bundle.main.path(forResource: "GoogleInfo", ofType: "plist") {
-            nsDictionary = NSDictionary(contentsOfFile: path)
+    private var authorization: GTMAppAuthFetcherAuthorization? = nil
+    private static let clientID: String = getClientID()
+    private let configuration = GTMAppAuthFetcherAuthorization.configurationForGoogle()
+
+    private static func getDictFromPlist() -> NSDictionary {
+        guard let path = Bundle.main.path(forResource: "GoogleInfo", ofType: "plist"),
+              let dict = NSDictionary(contentsOfFile: path) else {
+            return [:]
         }
-        return nsDictionary?["CLIENT_ID"] as! String
+        return dict
+    }
+
+    private static func getClientID() -> String {
+        let dict = Self.getDictFromPlist()
+        return (dict["CLIENT_ID"] as? String) ?? ""
+    }
+
+    private static func getReverseClientID() -> String {
+        let dict = Self.getDictFromPlist()
+        return (dict["REVERSED_CLIENT_ID"] as? String) ?? ""
     }
 
     @MainActor func signIn() {
-            // Checking for previous sign-in, if yes, then restore it, else move to sign in
-        if GIDSignIn.sharedInstance.hasPreviousSignIn() {
-            GIDSignIn.sharedInstance.restorePreviousSignIn { [unowned self] user, error in
-                authenticateUser(for: user, with: error)
-            }
+        if let _ = GTMAppAuthFetcherAuthorization.init(fromKeychainForName: AUTHORIZER_KEY) {
+            authenticateUser()
         } else {
-                // fetching clientID from Google OAuth2.0 plist (GoogleInfo.plist)
-            let clientID = getClientIDFromPlist()
-
-                // creating google sign in config object with clientID
-            let configuration = GIDConfiguration(clientID: clientID)
-
-                // since swiftui has no viewcontroller, we use uiapplication window to check for the root vc
+            // since swiftui has no viewcontroller, we use uiapplication window to check for the root vc
             guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene else { return }
             guard let rootViewController = windowScene.windows.first?.rootViewController else { return }
 
-                // signing in if all dependencies are met
-            GIDSignIn.sharedInstance.signIn(with: configuration, presenting: rootViewController, hint: "", additionalScopes: [kGTLRAuthScopeCalendar]) { [unowned self] user, error in
-                authenticateUser(for: user, with: error)
-            }
+            let request = OIDAuthorizationRequest.init(
+                configuration: configuration,
+                clientId: Self.clientID,
+                scopes: CALENDAR_SCOPES,
+                redirectURL: URL.init(string: "\(Self.getReverseClientID()):/oauthredirect")!,
+                responseType: OIDResponseTypeCode,
+                additionalParameters: nil
+            )
+            let _ = OIDAuthState.authState(
+                byPresenting: request,
+                presenting: rootViewController,
+                callback: { (authState, error) in
+                    if let error {
+                        print("[ERROR] \(error)")
+                        self.state = .signedOut
+                        return
+                    } else {
+                        if let authState {
+                            print("Authorization succeeded: \(authState)")
+                            self.authorization = GTMAppAuthFetcherAuthorization.init(authState: authState)
+                            GTMAppAuthFetcherAuthorization.save(self.authorization!, toKeychainForName: AUTHORIZER_KEY)
+                        }
+                    }
+                    self.authenticateUser()
+                }
+            )
         }
     }
 
-    func authenticateUser(for user: GIDGoogleUser?, with error: Error?) {
-            // handle authentication error
-        if let error = error {
-            print(error.localizedDescription)
-            self.state = .signedOut
-            return
-        }
-        self.state = .signedIn
-
-        getCalendarService(user)
+    func authenticateUser() {
+        state = .signedIn
+        getCalendarService()
         fetchData()
     }
 
@@ -111,27 +139,16 @@ final class AuthenticationViewModel: ObservableObject, @unchecked Sendable {
     }
 
     func signOut() {
-            // sign out of google
-        GIDSignIn.sharedInstance.signOut()
+        GTMAppAuthFetcherAuthorization.removeFromKeychain(forName: AUTHORIZER_KEY)
         state = .signedOut
     }
 
-    func restoreSignIn() {
-        if GIDSignIn.sharedInstance.hasPreviousSignIn() {
-            GIDSignIn.sharedInstance.restorePreviousSignIn { [unowned self] user, error in
-                authenticateUser(for: user, with: error)
-            }
-        }
-    }
-
-    func getCalendarService(_ user: GIDGoogleUser?) {
+    func getCalendarService() {
         let service = GTLRCalendarService()
         service.shouldFetchNextPages = true
         service.isRetryEnabled = true
         service.maxRetryInterval = 15
-        guard let currentUser = user else { return }
-        let authentication = currentUser.authentication
-        service.authorizer = authentication.fetcherAuthorizer()
+        service.authorizer = GTMAppAuthFetcherAuthorization.init(fromKeychainForName: AUTHORIZER_KEY)
         self.calendarService = service
     }
 
@@ -173,13 +190,14 @@ final class AuthenticationViewModel: ObservableObject, @unchecked Sendable {
                 self.getEventList(for: item.identifier ?? "primary") { result in
                     switch result {
                     case .success((let events)):
-                        var id = item.identifier
-                        let user = GIDSignIn.sharedInstance.currentUser
-                        if let email = user?.profile?.email {
-                            if let idx = id, idx == email {
-                                id = "primary"
-                            }
-                        }
+                        let id = item.identifier
+                        // if email needed c.f. https://qiita.com/ryokkkke/items/4c3da87b50d7a298e604
+                        //                        let user = GIDSignIn.sharedInstance.currentUser
+                        //                        if let email = user?.profile?.email {
+                        //                            if let idx = id, idx == email {
+                        //                                id = "primary"
+                        //                            }
+                        //                        }
                         self.allEvents[id ?? "primary"] = events
                     case .failure(let error):
                         print(error)
@@ -209,7 +227,6 @@ final class AuthenticationViewModel: ObservableObject, @unchecked Sendable {
         }
     }
 }
-
 
 extension AuthenticationViewModel {
 

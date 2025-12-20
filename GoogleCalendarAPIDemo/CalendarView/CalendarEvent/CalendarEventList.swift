@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import GoogleSignIn
 
 struct CalendarEventList: View {
     @EnvironmentObject var loginViewModel: AuthenticationViewModel
@@ -24,11 +23,12 @@ struct CalendarEventList: View {
     }
 
     func getCalendarId() -> String {
-        var calendarID = self.calendarId
-        let user = GIDSignIn.sharedInstance.currentUser
-        if user?.profile?.email == calendarID {
-            calendarID = "primary"
-        }
-        return calendarID
+        return "primary" // tmp
+//        var calendarID = self.calendarId
+//        let user = GIDSignIn.sharedInstance.currentUser
+//        if user?.profile?.email == calendarID {
+//            calendarID = "primary"
+//        }
+//        return calendarID
     }
 }

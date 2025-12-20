@@ -17,7 +17,7 @@ struct GoogleCalendarAPIDemoApp: App {
             ContentView()
                 .environmentObject(loginViewModel)
                 .onAppear {
-                    loginViewModel.restoreSignIn()
+                    loginViewModel.signIn()
                     loginViewModel.fetchData()
                 }
         }

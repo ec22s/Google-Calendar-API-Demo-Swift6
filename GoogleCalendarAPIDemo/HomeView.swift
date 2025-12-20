@@ -6,13 +6,10 @@
 //
 
 import SwiftUI
-import GoogleSignIn
 
 struct HomeView: View {
 
     @EnvironmentObject var loginViewModel: AuthenticationViewModel
-    private let user = GIDSignIn.sharedInstance.currentUser
-
     var body: some View {
         NavigationView {
             VStack {
@@ -32,10 +29,11 @@ struct HomeView: View {
                 NavigationLink {
                     ProfileView()
                 } label: {
-                    NetworkImage(url: user?.profile?.imageURL(withDimension: 100))
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 50, height: 50, alignment: .center)
-                        .cornerRadius(25)
+                    Text("Sign out")
+//                    NetworkImage(url: user?.profile?.imageURL(withDimension: 100))
+//                        .aspectRatio(contentMode: .fit)
+//                        .frame(width: 50, height: 50, alignment: .center)
+//                        .cornerRadius(25)
                 }
             }
             CalendarEventList()

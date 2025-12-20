@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import GoogleSignInSwift
 
 struct LoginView: View {
 
@@ -16,7 +15,9 @@ struct LoginView: View {
         VStack {
             LottieView(name: "calendar_home", loopMode: .loop)
             Spacer()
-            GoogleSignInButton(action: loginViewModel.signIn)
+            Button(action: loginViewModel.signIn) {
+                Text("Sign in")
+            }.padding()
         }
     }
 }

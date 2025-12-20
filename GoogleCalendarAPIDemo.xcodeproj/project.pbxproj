@@ -14,8 +14,6 @@
 		6589F656292A551000D686D7 /* GoogleAPIClientForREST_Calendar in Frameworks */ = {isa = PBXBuildFile; productRef = 6589F655292A551000D686D7 /* GoogleAPIClientForREST_Calendar */; };
 		6589F659292A553100D686D7 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 6589F658292A553100D686D7 /* Lottie */; };
 		6589F666292A617300D686D7 /* AuthenticationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6589F665292A617300D686D7 /* AuthenticationViewModel.swift */; };
-		6589F66A292A666C00D686D7 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 6589F669292A666C00D686D7 /* GoogleSignIn */; };
-		6589F66C292A666C00D686D7 /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 6589F66B292A666C00D686D7 /* GoogleSignInSwift */; };
 		6589F670292A6AB900D686D7 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6589F66F292A6AB900D686D7 /* Extensions.swift */; };
 		6589F672292A6D6C00D686D7 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6589F671292A6D6C00D686D7 /* LoginView.swift */; };
 		6589F674292A6F1D00D686D7 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6589F673292A6F1D00D686D7 /* HomeView.swift */; };
@@ -33,6 +31,8 @@
 		6589F692292B66F900D686D7 /* CustomTimePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6589F691292B66F900D686D7 /* CustomTimePicker.swift */; };
 		6589F697292B999200D686D7 /* noData.json in Resources */ = {isa = PBXBuildFile; fileRef = 6589F696292B999100D686D7 /* noData.json */; };
 		6589F69F292BE67800D686D7 /* GoogleInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6589F69E292BE67800D686D7 /* GoogleInfo.plist */; };
+		CE067B0B2EF6F7B900B71655 /* AppAuth in Frameworks */ = {isa = PBXBuildFile; productRef = CE067B0A2EF6F7B900B71655 /* AppAuth */; };
+		CE067B0E2EF6F7E900B71655 /* GTMAppAuth in Frameworks */ = {isa = PBXBuildFile; productRef = CE067B0D2EF6F7E900B71655 /* GTMAppAuth */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -68,9 +68,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6589F66C292A666C00D686D7 /* GoogleSignInSwift in Frameworks */,
+				CE067B0B2EF6F7B900B71655 /* AppAuth in Frameworks */,
+				CE067B0E2EF6F7E900B71655 /* GTMAppAuth in Frameworks */,
 				6589F656292A551000D686D7 /* GoogleAPIClientForREST_Calendar in Frameworks */,
-				6589F66A292A666C00D686D7 /* GoogleSignIn in Frameworks */,
 				6589F659292A553100D686D7 /* Lottie in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -208,8 +208,8 @@
 			packageProductDependencies = (
 				6589F655292A551000D686D7 /* GoogleAPIClientForREST_Calendar */,
 				6589F658292A553100D686D7 /* Lottie */,
-				6589F669292A666C00D686D7 /* GoogleSignIn */,
-				6589F66B292A666C00D686D7 /* GoogleSignInSwift */,
+				CE067B0A2EF6F7B900B71655 /* AppAuth */,
+				CE067B0D2EF6F7E900B71655 /* GTMAppAuth */,
 			);
 			productName = GoogleCalendarAPIDemo;
 			productReference = 6589F643292A538100D686D7 /* GoogleCalendarAPIDemo.app */;
@@ -242,7 +242,8 @@
 			packageReferences = (
 				6589F654292A551000D686D7 /* XCRemoteSwiftPackageReference "google-api-objectivec-client-for-rest" */,
 				6589F657292A553100D686D7 /* XCRemoteSwiftPackageReference "lottie-ios" */,
-				6589F668292A666C00D686D7 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
+				CE067B092EF6F7B900B71655 /* XCRemoteSwiftPackageReference "AppAuth-iOS" */,
+				CE067B0C2EF6F7E900B71655 /* XCRemoteSwiftPackageReference "GTMAppAuth" */,
 			);
 			productRefGroup = 6589F644292A538100D686D7 /* Products */;
 			projectDirPath = "";
@@ -514,8 +515,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/google/google-api-objectivec-client-for-rest";
 			requirement = {
-				branch = main;
-				kind = branch;
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.1.0;
 			};
 		};
 		6589F657292A553100D686D7 /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
@@ -526,12 +527,20 @@
 				minimumVersion = 3.0.0;
 			};
 		};
-		6589F668292A666C00D686D7 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */ = {
+		CE067B092EF6F7B900B71655 /* XCRemoteSwiftPackageReference "AppAuth-iOS" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/google/GoogleSignIn-iOS";
+			repositoryURL = "https://github.com/openid/AppAuth-iOS.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 6.0.0;
+				minimumVersion = 1.6.0;
+			};
+		};
+		CE067B0C2EF6F7E900B71655 /* XCRemoteSwiftPackageReference "GTMAppAuth" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/google/GTMAppAuth.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.3.1;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
@@ -547,15 +556,15 @@
 			package = 6589F657292A553100D686D7 /* XCRemoteSwiftPackageReference "lottie-ios" */;
 			productName = Lottie;
 		};
-		6589F669292A666C00D686D7 /* GoogleSignIn */ = {
+		CE067B0A2EF6F7B900B71655 /* AppAuth */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 6589F668292A666C00D686D7 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
-			productName = GoogleSignIn;
+			package = CE067B092EF6F7B900B71655 /* XCRemoteSwiftPackageReference "AppAuth-iOS" */;
+			productName = AppAuth;
 		};
-		6589F66B292A666C00D686D7 /* GoogleSignInSwift */ = {
+		CE067B0D2EF6F7E900B71655 /* GTMAppAuth */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 6589F668292A666C00D686D7 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
-			productName = GoogleSignInSwift;
+			package = CE067B0C2EF6F7E900B71655 /* XCRemoteSwiftPackageReference "GTMAppAuth" */;
+			productName = GTMAppAuth;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
